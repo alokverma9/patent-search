@@ -1,0 +1,14 @@
+# PatentRank - Core Dependencies (CPU-friendly)
+torch
+transformers
+datasets
+google-genai
+python-dotenv
+pydantic
+tqdm
+requests
+numpy
+pandas
+scikit-learn
+psycopg2-binary
+pgvector
