@@ -20,6 +20,26 @@ services:
       start_period: 20s
     restart: unless-stopped
 
+  pgvector:
+    image: pgvector/pgvector:pg16
+    container_name: patentrank-pgvector
+    environment:
+      - POSTGRES_DB=patentrank
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d patentrank"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
 volumes:
   es_data:
+    driver: local
+  pg_data:
     driver: local

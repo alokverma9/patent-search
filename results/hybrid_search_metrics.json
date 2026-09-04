@@ -1,0 +1,50 @@
+{
+  "bm25": {
+    "num_queries": 200,
+    "precision@5": 0.199,
+    "precision@10": 0.1,
+    "recall@5": 0.995,
+    "recall@10": 1.0,
+    "recall@20": 1.0,
+    "hit@1": 0.95,
+    "hit@5": 0.995,
+    "hit@10": 1.0,
+    "hit@20": 1.0,
+    "mrr": 0.9733333333333333,
+    "ndcg@10": 0.9801728748462557,
+    "mean_latency_ms": 173.1202569999732,
+    "p95_latency_ms": 318.1659000001673
+  },
+  "dense": {
+    "num_queries": 200,
+    "precision@5": 0.2,
+    "precision@10": 0.1,
+    "recall@5": 1.0,
+    "recall@10": 1.0,
+    "recall@20": 1.0,
+    "hit@1": 1.0,
+    "hit@5": 1.0,
+    "hit@10": 1.0,
+    "hit@20": 1.0,
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "mean_latency_ms": 160.49151949998304,
+    "p95_latency_ms": 282.4696000006952
+  },
+  "hybrid": {
+    "num_queries": 200,
+    "precision@5": 0.2,
+    "precision@10": 0.1,
+    "recall@5": 1.0,
+    "recall@10": 1.0,
+    "recall@20": 1.0,
+    "hit@1": 1.0,
+    "hit@5": 1.0,
+    "hit@10": 1.0,
+    "hit@20": 1.0,
+    "mrr": 1.0,
+    "ndcg@10": 1.0,
+    "mean_latency_ms": 196.61953949992494,
+    "p95_latency_ms": 323.84279999860155
+  }
+}

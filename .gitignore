@@ -30,7 +30,8 @@ embeddings_cache.jsonl
 Thumbs.db
 Desktop.ini
 .DS_Store
-
+data/*query_embeddings_cache.jsonl
+data/*embeddings_cache.jsonl
 
 BUILD_PLAN.md
 
