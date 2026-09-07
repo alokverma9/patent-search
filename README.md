@@ -49,7 +49,7 @@ graph TD
     end
 
     subgraph "Asynchronous Background Ingestion Pipeline"
-        FastAPI -->|POST /ingest (Async Task)| Redis["Redis 7 Broker (Port 6379)"]
+        FastAPI -->|"POST /ingest (Async Task)"| Redis["Redis 7 Broker (Port 6379)"]
         Redis -->|Task Queue| Worker["Celery Worker (tasks.py)"]
         Worker -->|Structural Parsing| Segmenter["Rule & ML Text Segmenter"]
         Worker -->|768-dim Dense Vectors| Gemini["Google AI Studio (gemini-embedding-2)"]
