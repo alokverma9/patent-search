@@ -1,0 +1,26 @@
+{
+  "train": {
+    "num_queries": 160,
+    "num_positives": 160,
+    "num_bm25_hard_negatives": 480,
+    "num_dense_hard_negatives": 320,
+    "num_orthogonal_negatives": 160,
+    "total_pairs": 1120,
+    "total_triples": 960
+  },
+  "validation": {
+    "num_queries": 40,
+    "num_positives": 40,
+    "num_bm25_hard_negatives": 120,
+    "num_dense_hard_negatives": 80,
+    "num_orthogonal_negatives": 40,
+    "total_pairs": 280,
+    "total_triples": 240
+  },
+  "config": {
+    "bm25_negatives": 3,
+    "dense_negatives": 2,
+    "train_ratio": 0.8,
+    "seed": 42
+  }
+}

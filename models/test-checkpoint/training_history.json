@@ -1,0 +1,32 @@
+{
+  "base_model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+  "device": "cpu",
+  "hyperparameters": {
+    "epochs": 1,
+    "batch_size": 8,
+    "lr": 2e-05,
+    "weight_decay": 0.01,
+    "max_length": 256,
+    "total_steps": 4,
+    "warmup_steps": 0
+  },
+  "zero_shot_baseline": {
+    "val_loss": 0.32922379217214054,
+    "val_mrr": 0.8154166666666667,
+    "val_hit@1": 0.7
+  },
+  "epochs": [
+    {
+      "epoch": 1,
+      "train_loss": 0.38910624012351036,
+      "val_loss": 0.34242765522665447,
+      "val_mrr": 0.9166666666666666,
+      "val_hit@1": 0.85,
+      "lr": 0.0,
+      "duration_sec": 15.621199131011963
+    }
+  ],
+  "total_duration_sec": 33.71639084815979,
+  "best_epoch": 1,
+  "best_val_mrr": 0.9166666666666666
+}

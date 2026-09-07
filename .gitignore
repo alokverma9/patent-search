@@ -21,6 +21,7 @@ embeddings_cache.jsonl
 *.parquet
 *.pt
 *.bin
+*.safetensors
 
 # VS Code & IDEs
 .vscode/
