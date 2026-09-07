@@ -1,0 +1,64 @@
+{
+  "timestamp": "2026-09-07 10:51:58",
+  "rule_based_segmenter": {
+    "evaluated_documents": 50,
+    "mean_parse_time_ms": 19.92,
+    "p95_parse_time_ms": 56.074,
+    "mean_sections_per_doc": 4.1,
+    "mean_paragraphs_per_doc": 35.8,
+    "mean_claims_per_doc": 0.0
+  },
+  "ml_boundary_classifier": {
+    "train_samples": 3465,
+    "test_samples": 1156,
+    "positive_test_count": 467,
+    "precision": 0.9978,
+    "recall": 0.9914,
+    "f1_score": 0.9946,
+    "roc_auc": 0.9999,
+    "training_time_sec": 0.47,
+    "feature_importances": {
+      "starts_with_bracket": 0.4832,
+      "uppercase_ratio": 0.1792,
+      "digit_ratio": 0.0798,
+      "word_count": 0.0505,
+      "char_length": 0.0488,
+      "punct_ratio": 0.046,
+      "has_section_keyword": 0.0373,
+      "titlecase_ratio": 0.0338,
+      "starts_with_digit": 0.0186,
+      "is_short_line": 0.0104,
+      "ends_with_period": 0.0078,
+      "prev_line_empty": 0.0034,
+      "ends_with_colon": 0.0007,
+      "has_claim_keyword": 0.0003,
+      "has_transitional_keyword": 0.0002
+    }
+  },
+  "retrieval_evaluation": {
+    "evaluated_queries": 200,
+    "monolithic_document_count": 396,
+    "granular_passage_count": 1765,
+    "monolithic_bm25": {
+      "hit_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_10": 1.0,
+      "mean_latency_ms": 1.09
+    },
+    "passage_segmented_bm25_maxp": {
+      "hit_at_1": 1.0,
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_10": 1.0,
+      "mean_latency_ms": 5.5
+    },
+    "improvement_analysis": {
+      "mrr_delta": 0.0,
+      "top1_hit_delta": 0.0,
+      "ndcg_delta": 0.0
+    }
+  }
+}
