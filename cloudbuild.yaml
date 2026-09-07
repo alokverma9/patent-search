@@ -1,0 +1,46 @@
+steps:
+  # 1. Pull cached image if available to accelerate build
+  - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'bash'
+    args: ['-c', 'docker pull gcr.io/$PROJECT_ID/patentrank:latest || exit 0']
+
+  # 2. Build the production PatentRank container image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'build',
+      '-t', 'gcr.io/$PROJECT_ID/patentrank:$SHORT_SHA',
+      '-t', 'gcr.io/$PROJECT_ID/patentrank:latest',
+      '--cache-from', 'gcr.io/$PROJECT_ID/patentrank:latest',
+      '.'
+    ]
+
+  # 3. Push container images to Google Container Registry / Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/patentrank:$SHORT_SHA']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/patentrank:latest']
+
+  # 4. Deploy to Google Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args: [
+      'run', 'deploy', 'patentrank-api',
+      '--image', 'gcr.io/$PROJECT_ID/patentrank:$SHORT_SHA',
+      '--region', 'us-central1',
+      '--platform', 'managed',
+      '--allow-unauthenticated',
+      '--memory', '4Gi',
+      '--cpu', '2',
+      '--timeout', '300s',
+      '--min-instances', '0',
+      '--max-instances', '5',
+      '--set-env-vars', 'PORT=8000,LOG_LEVEL=INFO'
+    ]
+
+images:
+  - 'gcr.io/$PROJECT_ID/patentrank:$SHORT_SHA'
+  - 'gcr.io/$PROJECT_ID/patentrank:latest'
+
+timeout: 1200s
+options:
+  machineType: 'E2_HIGHCPU_8'

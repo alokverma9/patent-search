@@ -19,6 +19,8 @@ services:
       retries: 12
       start_period: 20s
     restart: unless-stopped
+    networks:
+      - patentrank-net
 
   pgvector:
     image: pgvector/pgvector:pg16
@@ -37,9 +39,83 @@ services:
       timeout: 5s
       retries: 5
     restart: unless-stopped
+    networks:
+      - patentrank-net
+
+  redis:
+    image: redis:7.2-alpine
+    container_name: patentrank-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - patentrank-net
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: patentrank-api
+    environment:
+      - PORT=8000
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+      - POSTGRES_HOST=pgvector
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=patentrank
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - REDIS_URL=redis://redis:6379/0
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+    ports:
+      - "8000:8000"
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+      pgvector:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - patentrank-net
+
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: patentrank-worker
+    command: ["celery", "-A", "celery_app.celery_app", "worker", "--loglevel=info", "--concurrency=2"]
+    environment:
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+      - POSTGRES_HOST=pgvector
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=patentrank
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - REDIS_URL=redis://redis:6379/0
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+    depends_on:
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - patentrank-net
 
 volumes:
   es_data:
     driver: local
   pg_data:
     driver: local
+  redis_data:
+    driver: local
+
+networks:
+  patentrank-net:
+    driver: bridge
